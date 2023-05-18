@@ -1,14 +1,22 @@
 
-<style>
-body {
-  background-color: #47546c;
-}
+[//]: # (<style>)
 
-.div{
-  background-color: black;
-  box-shadow: -3px -3px 30px 3px #eee;
-}
-</style>
+[//]: # (body {)
+
+[//]: # (  background-color: #47546c;)
+
+[//]: # (})
+
+[//]: # ()
+[//]: # (.div{)
+
+[//]: # (  background-color: black;)
+
+[//]: # (  box-shadow: -3px -3px 30px 3px #eee;)
+
+[//]: # (})
+
+[//]: # (</style>)
 
 <h1> Ride Sharing </h1>
 
