@@ -1,9 +1,3 @@
-import sys
-
-py_version = sys.version_info
-if py_version.major!=3 or py_version.minor<10:
-    raise RuntimeError("invalid python version supports only python3.10+")
-
 import math
 from dataclasses import dataclass, field
 
@@ -16,7 +10,7 @@ from collections import defaultdict
 from icecream import ic
 
 
-@dataclass(slots=True)
+@dataclass
 class Ride:
     id: str
     driver_id: str
@@ -40,13 +34,13 @@ class Ride:
         self.duration = duration_in_minutes
 
 
-@dataclass(slots=True)
+@dataclass
 class Driver:
     id: str
     coord: List[int]
 
 
-@dataclass(slots=True)
+@dataclass
 class Rider:
     id: str
     coord: List[int]
