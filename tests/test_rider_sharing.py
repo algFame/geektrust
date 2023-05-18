@@ -1,6 +1,6 @@
 import unittest
 
-from rider_sharing import *
+from src.rider_sharing import *
 
 
 class TestScript(unittest.TestCase):
