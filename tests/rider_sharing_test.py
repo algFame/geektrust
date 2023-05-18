@@ -1,5 +1,7 @@
 import unittest
+
 from rider_sharing import *
+
 
 class TestScript(unittest.TestCase):
 
@@ -10,13 +12,13 @@ class TestScript(unittest.TestCase):
         add_driver("D1", 1, 1)
         self.assertEqual(len(drivers), 1)
         self.assertIn("D1", drivers)
-        self.assertEqual(drivers["D1"].coord, [1, 1])
+        self.assertEqual(drivers["D1"].coord, (1, 1))
 
     def test_add_rider(self):
         add_rider("R1", 2, 2)
         self.assertEqual(len(riders), 1)
         self.assertIn("R1", riders)
-        self.assertEqual(riders["R1"].coord, [2, 2])
+        self.assertEqual(riders["R1"].coord, (2, 2))
 
     def test_match(self):
         add_driver("D1", 1, 1)
@@ -53,7 +55,7 @@ class TestScript(unittest.TestCase):
         stop_ride("R1D1", (3, 3), 10)
         bill("R1D1")
 
+
 if __name__ == '__main__':
     # ic.disable()
     unittest.main()
-
