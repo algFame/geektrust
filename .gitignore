@@ -3,5 +3,5 @@ __pycache__/
 *.zip
 *.tar.*
 *.tar
-
+*.gz
 geektrust.zip

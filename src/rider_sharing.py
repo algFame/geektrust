@@ -173,9 +173,7 @@ def bill(ride_id: str):
     ic(amt)
     amt += amt * service_tax
 
-    ic(amt)
-    amt = round(amt, 2)
-    print(f"BILL {ride.id} {ride.driver_id} {amt}")
+    print(f"BILL {ride.id} {ride.driver_id} {amt:.2f}")
 
 
 def command_parser(cmd: str):
