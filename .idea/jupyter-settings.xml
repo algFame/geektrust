@@ -3,6 +3,13 @@
   <component name="JupyterPersistentConnectionParameters">
     <option name="moduleParameters">
       <map>
+        <entry key="$PROJECT_DIR$/.idea/geektrust_rider-sharing.iml">
+          <value>
+            <JupyterConnectionParameters>
+              <option name="managed" value="true" />
+            </JupyterConnectionParameters>
+          </value>
+        </entry>
         <entry key="$USER_HOME$/pythoneerHiro/binance/.idea/binance.iml">
           <value>
             <JupyterConnectionParameters>
