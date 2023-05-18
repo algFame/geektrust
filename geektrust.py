@@ -1,12 +1,10 @@
 import os
 from sys import argv
-import sys
 
-from icecream import  ic
+from src.rider_sharing import *
 
-from rider_sharing import *
+
 def main():
-    
     """
     Sample code to read inputs from the file
 
@@ -28,7 +26,9 @@ def main():
         command_parser(i)
 
     f.close()
+
+
 if __name__ == "__main__":
-    if os.getenv("mode")!="dev":
+    if os.getenv("mode") != "dev":
         ic.disable()
     main()
