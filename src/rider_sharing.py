@@ -162,7 +162,7 @@ def bill(ride_id: str):
         print("RIDE_NOT_COMPLETED")
         return
 
-    # duration = (ride.started_at-ride.ended_at).total_seconds()//60 #FIXME could be a prob
+    # duration = (ride.started_at-ride.ended_at).total_seconds()//60
 
     duration = ride.duration
 
