@@ -124,6 +124,11 @@ def start_ride(ride_id: str, driver_n: int, rider_id: str):
         return
 
     driver_id = drivers_matched[driver_n - 1]
+    driver = drivers[driver_id]
+
+    if not driver.available:
+        print("INVALID_RIDE")
+        ic(f"driver{driver.id} not available")
 
     rider = riders[rider_id]
 
