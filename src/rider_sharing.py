@@ -24,17 +24,20 @@ class Ride:
 
     def start(self):
         self.started_at = datetime.now()
+        drivers[self.driver_id].available = False
 
     def stop(self, dest_coords, duration_in_minutes=0):
         self.ended_at = datetime.now()
         self.dest_coords = dest_coords
         self.duration = duration_in_minutes
+        drivers[self.driver_id].available = True
 
 
 @dataclass
 class Driver:
     id: str
     coord: Tuple[int, int]
+    available: bool = True
 
 
 @dataclass
@@ -80,6 +83,9 @@ def match(rider_id: str):
     rider = riders[rider_id]
 
     for driver in drivers.values():
+        if not driver.available:
+            ic(f"driver-{driver.id} is away")
+            continue
         d = distance(driver.coord, rider.coord)
         if d <= 5:
             ic(rider_id, driver.id, d)
