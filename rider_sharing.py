@@ -90,7 +90,7 @@ def match(rider_id: str):
 
     for driver in drivers.values():
         d = distance(driver.coord, rider.coord)
-        if d < 5:
+        if d <= 5:
             ic(rider_id, driver.id, d)
             drivers_available.append((driver.id, d))
         else:
