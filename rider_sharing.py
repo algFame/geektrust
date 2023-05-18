@@ -1,11 +1,8 @@
 import math
-from dataclasses import dataclass, field
-
-from datetime import datetime
-
-from typing import Tuple, Dict, DefaultDict, List
-
 from collections import defaultdict
+from dataclasses import dataclass, field
+from datetime import datetime
+from typing import Tuple, Dict, DefaultDict, List
 
 from icecream import ic
 
@@ -37,18 +34,18 @@ class Ride:
 @dataclass
 class Driver:
     id: str
-    coord: List[int]
+    coord: Tuple[int, int]
 
 
 @dataclass
 class Rider:
     id: str
-    coord: List[int]
+    coord: Tuple[int, int]
 
 
 drivers: Dict[str, Driver] = dict()
 
-matched: DefaultDict[str, List[int]] = defaultdict(lambda: [])  # driverid's
+matched: DefaultDict[str, List[str]] = defaultdict(lambda: [])  # driverid's
 
 riders: Dict[str, Rider] = dict()
 
@@ -64,14 +61,14 @@ def rest_global():
 
 
 def add_driver(id: str, x: int, y: int):
-    driver = Driver(id, [x, y])
+    driver = Driver(id, (x, y))
     drivers[id] = driver
 
     ic(driver)
 
 
 def add_rider(id: str, x: int, y: int):
-    rider = Rider(id, [x, y])
+    rider = Rider(id, (x, y))
     riders[id] = rider
 
     ic(rider)
