@@ -24,7 +24,6 @@ def main():
     for i in testcase:
         ic(i)
         command_parser(i)
-
     f.close()
 
 
