@@ -36,6 +36,10 @@ jobs:
       - name: Rider Sharing
         run: |
           cd rider-sharing
+          if [ -f "requirements.txt" ]; then
+            echo "Installing requirements in $folder"
+            pip install -r requirements.txt
+          fi
           python geektrust.py
           python -m unittest discover
           
@@ -60,6 +64,10 @@ jobs:
   
           for folder in $folders; do
               cd "$folder" || continue
+              if [ -f "requirements.txt" ]; then
+                echo "Installing requirements in $folder"
+                pip install -r requirements.txt
+              fi
               echo "build $folder"
               python geektrust.py
               echo "unit testing $folder"
