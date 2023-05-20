@@ -54,15 +54,6 @@ riders: Dict[str, Rider] = dict()
 
 rides: Dict[str, Ride] = dict()
 
-
-def rest_global():
-    # gs = [drivers,matched,riders,rides]
-    drivers.clear()
-    matched.clear()
-    riders.clear()
-    rides.clear()
-
-
 def add_driver(id: str, x: int, y: int):
     driver = Driver(id, (x, y))
     drivers[id] = driver
@@ -215,9 +206,4 @@ def command_parser(cmd: str):
         bill(ride_id)
 
 
-def run_testcase(in_str: str):
-    rest_global()
-    testcase = in_str.strip().splitlines()
-    for i in testcase:
-        ic(i)
-        command_parser(i)
+
