@@ -72,6 +72,8 @@ def main():
 
 
     for file_path in argv[1:]:
+        rest_global()
+
         print("testcase-",file_path)
         print()
         input_file = os.path.split(file_path)[1]
