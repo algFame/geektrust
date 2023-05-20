@@ -1,0 +1,46 @@
+name: Testing
+
+on:
+  push:
+    branches: [ "main" ]
+    tags:
+      - "*"
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+#  schedule:
+#    - cron: '* */1 * * *'
+
+concurrency:
+  group: geektrust
+  cancel-in-progress: true
+
+env:
+  mode: 'dev'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+#
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.10 on ubuntu-latest
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+          cache: 'pip'
+
+      - name: Rider Sharing
+        run: |
+          cd rider-sharing
+          python geektrust.py
+          python -m unittest discover
+          
+    
+      
+        
+        
+          
