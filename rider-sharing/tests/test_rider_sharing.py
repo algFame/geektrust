@@ -2,6 +2,10 @@ from .dyn_import import dyn_import
 
 import unittest
 
+from src.testcase import reset_global
+from src.rider_sharing import *
+
+dyn_import()
 class TestScript(unittest.TestCase):
 
     def setUp(self):
