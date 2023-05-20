@@ -31,7 +31,7 @@ def main():
             print()
             print()
             run_testcase("\n".join(testcase))
-            continue
+            return
 
         output = capture_output(run_testcase, "\n".join(testcase))
 
