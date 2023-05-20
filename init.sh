@@ -8,3 +8,5 @@
  cp -r template/*  $problemName/
 
 sed  's/\[ProblemName\]/$problemName/g' template/readme.md
+
+touch $problemName.ipynb
