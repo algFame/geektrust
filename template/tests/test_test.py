@@ -6,7 +6,7 @@ import unittest
 
 class TestScript(unittest.TestCase):
 
-    def test_setup(self):
+    def setUp(self):
         dyn_import()
 
 
