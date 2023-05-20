@@ -17,9 +17,8 @@ def main():
             if i.endswith(".txt") and i.startswith("input"):
                 argv.append(os.path.join(test_folder, i))
 
+
     for file_path in sorted(argv[1:]):
-        print("testcase-", file_path)
-        print()
         input_file = os.path.split(file_path)[1]
 
         f = open(file_path, 'r')
@@ -27,7 +26,7 @@ def main():
         f.close()
 
         if len(argv) == 2:
-            print(testcase)
+            ic(testcase)
             print()
             print()
             run_testcase("\n".join(testcase))
