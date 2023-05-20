@@ -1,9 +1,10 @@
 from icecream import ic
 
-from .utils import capture_output,compare_output,highlight_differences
+from .utils import *
 
-dict_objects = []  # TODO
+from .rider_sharing import command_parser, drivers,matched,riders,rides
 
+dict_objects = [drivers,matched,riders,rides]
 
 def rest_global(dicts=None):
     if dicts is None:
@@ -17,6 +18,6 @@ def run_testcase(in_str: str):
     testcase = in_str.strip().splitlines()
     for i in testcase:
         ic(i)
-        # command_parser(i) #TODO
+        command_parser(i)
 
 

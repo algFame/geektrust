@@ -28,6 +28,8 @@ def main():
 
         output = capture_output(src.run_testcase, "\n".join(testcase))
 
+        print(output)
+
         cmp_output = compare_output(output, os.path.join(test_folder, input_file.replace("input", "output")))
 
         if cmp_output:

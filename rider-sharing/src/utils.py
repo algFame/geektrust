@@ -5,6 +5,7 @@ from io import StringIO
 from diff_match_patch import diff_match_patch
 from colorama import Fore, Style
 
+import re
 def highlight_differences(text1, text2):
     dmp = diff_match_patch()
     diffs = dmp.diff_main(text1, text2)
@@ -37,6 +38,8 @@ def compare_output(output_value, expected_output_file)->bool:
         expected_output = f.read().strip()
 
     output_value = output_value.strip()
+
+    output_value = re.sub(r"ic\|.*\n", "", output_value)
 
     if output_value != expected_output:
         print("Output does not match the expected output.")
