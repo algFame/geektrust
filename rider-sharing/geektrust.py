@@ -27,8 +27,6 @@ def main():
 
         if len(argv) == 2:
             ic(testcase)
-            print()
-            print()
             run_testcase("\n".join(testcase))
             return
 
@@ -42,7 +40,6 @@ def main():
             print(f"Testcase {input_file} passed")
         else:
             print(f"Testcase {input_file} failed")
-            print()
             sys.exit(1)
 
         print()
