@@ -39,7 +39,7 @@ def main():
         cmp_output = compare_output(output, os.path.join(test_folder, input_file.replace("input", "output")))
 
         if cmp_output:
-            print("Testcase passed")
+            print(f"Testcase {input_file} passed")
         else:
             print(f"Testcase {input_file} failed")
             print()
