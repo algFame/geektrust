@@ -70,8 +70,7 @@ def main():
             if i.endswith(".txt") and i.startswith("input"):
                 argv.append(os.path.join(test_folder, i))
 
-
-    for file_path in argv[1:]:
+    for file_path in sorted(argv[1:]):
         rest_global()
 
         print("testcase-",file_path)
@@ -100,7 +99,7 @@ def main():
         if cmp_output:
             print("Testcase passed")
         else:
-            print("Testcase failed")
+            print(f"Testcase {input_file} failed")
             print()
             sys.exit(1)
 
