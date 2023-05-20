@@ -4,10 +4,9 @@ import unittest
 
 class TestScript(unittest.TestCase):
 
-    dyn_import()
-
     def setUp(self):
-        rest_global()
+        dyn_import()
+        reset_global()
 
     def test_add_driver(self):
         add_driver("D1", 1, 1)

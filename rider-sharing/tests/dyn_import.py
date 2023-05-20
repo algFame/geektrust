@@ -12,7 +12,7 @@ def dyn_import():
             spec = importlib.util.spec_from_file_location(module_name, file_path)
             module = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(module)
-
+            print(f"imported {file_path}")
             for name, value in vars(module).items():
                 # callable(value)
                 if name not in globals():

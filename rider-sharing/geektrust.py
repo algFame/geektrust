@@ -6,6 +6,8 @@ from sys import argv
 
 from src.utils import compare_output,capture_output
 
+from src.testcase import run_testcase
+
 def main():
     test_folder = "sample_input"
 
@@ -26,7 +28,7 @@ def main():
         f.close()
 
 
-        output = capture_output(src.run_testcase, "\n".join(testcase))
+        output = capture_output(run_testcase, "\n".join(testcase))
 
         print(output)
 

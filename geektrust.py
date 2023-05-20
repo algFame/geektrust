@@ -71,7 +71,7 @@ def main():
                 argv.append(os.path.join(test_folder, i))
 
     for file_path in sorted(argv[1:]):
-        rest_global()
+        reset_global()
 
         print("testcase-",file_path)
         print()
