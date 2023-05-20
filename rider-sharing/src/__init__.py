@@ -1,8 +1,9 @@
 from icecream import ic
 
-from .utils import *
+from src.utils import *
 
-from .rider_sharing import command_parser, drivers,matched,riders,rides
+from src.rider_sharing import command_parser, drivers, matched, riders, rides
+
 
 dict_objects = [drivers,matched,riders,rides]
 

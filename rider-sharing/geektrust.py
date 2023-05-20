@@ -4,7 +4,7 @@ import src
 import sys
 from sys import argv
 
-from src import compare_output,capture_output
+from src.utils import compare_output,capture_output
 
 def main():
     test_folder = "sample_input"

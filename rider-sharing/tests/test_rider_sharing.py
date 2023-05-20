@@ -1,9 +1,10 @@
-from .dyn_import import *
-print(f"Dyn import success {imported}")
+from .dyn_import import dyn_import
 
 import unittest
 
 class TestScript(unittest.TestCase):
+
+    dyn_import()
 
     def setUp(self):
         rest_global()
