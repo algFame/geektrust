@@ -1,6 +1,8 @@
-import unittest
 from .dyn_import import *
 print(f"Dyn import success {imported}")
+
+import unittest
+
 class TestScript(unittest.TestCase):
 
     def setUp(self):
