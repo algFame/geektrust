@@ -1,12 +1,12 @@
 import os
-import src
-
 import sys
 from sys import argv
 
-from src.utils import compare_output,capture_output
+from icecream import ic
 
 from src.testcase import run_testcase
+from src.utils import compare_output, capture_output
+
 
 def main():
     test_folder = "sample_input"
@@ -18,15 +18,20 @@ def main():
                 argv.append(os.path.join(test_folder, i))
 
     for file_path in sorted(argv[1:]):
-        print("testcase-",file_path)
+        print("testcase-", file_path)
         print()
         input_file = os.path.split(file_path)[1]
-
 
         f = open(file_path, 'r')
         testcase = [i.strip() for i in f.readlines() if len(i) > 0]
         f.close()
 
+        if len(argv) == 2:
+            print(testcase)
+            print()
+            print()
+            run_testcase("\n".join(testcase))
+            continue
 
         output = capture_output(run_testcase, "\n".join(testcase))
 
