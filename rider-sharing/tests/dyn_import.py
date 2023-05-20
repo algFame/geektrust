@@ -1,5 +1,5 @@
-import os
 import importlib
+import os
 
 src_dir = 'src'
 def dyn_import():
@@ -21,3 +21,4 @@ def dyn_import():
     imported = True
 
     print(f"Dyn import success {imported}")
+
