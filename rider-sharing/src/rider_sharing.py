@@ -111,7 +111,7 @@ def start_ride(ride_id: str, driver_n: int, rider_id: str):
 
     if len(drivers_matched) < driver_n:
         print("INVALID_RIDE")
-        ic(f"no drivers matched")
+        ic(f"invalid {driver_n} for {rider_id}")
         return
 
     driver_id = drivers_matched[driver_n - 1]
