@@ -1,3 +1,3 @@
 icecream~=2.1.3
 diff_match_patch
-numpy
+numpy~=1.21.5
