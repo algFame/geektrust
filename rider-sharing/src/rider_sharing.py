@@ -1,3 +1,4 @@
+import math
 from collections import defaultdict
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -141,11 +142,10 @@ def stop_ride(ride_id: str, dest_coords: Tuple[int, int], time_taken: int):
 
 
 def distance(start_coord: Tuple[int, int], dest_coord: Tuple[int, int]) -> float:
-    import numpy as np
     x2, x1 = dest_coord[0], start_coord[0]
     y2, y1 = dest_coord[1], start_coord[1]
 
-    return np.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+    return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
 
 def bill(ride_id: str):
@@ -168,14 +168,12 @@ def bill(ride_id: str):
 
     duration = ride.duration
 
-    d = distance(ride.start_coords, ride.dest_coords)
-    d = round(d, 2)
+    d = round(distance(ride.start_coords, ride.dest_coords), 2)
 
     amt = base_fare + duration * cost_per_min + d * cost_per_km
 
-    amt += amt * service_tax
-
     ic(amt)
+    amt += amt * service_tax
 
     print(f"BILL {ride.id} {ride.driver_id} {amt:.2f}")
 
