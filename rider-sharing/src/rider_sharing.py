@@ -1,7 +1,7 @@
-import math
 from collections import defaultdict
 from dataclasses import dataclass, field
 from datetime import datetime
+from decimal import Decimal, getcontext
 from typing import Tuple, Dict, DefaultDict, List
 
 from icecream import ic
@@ -53,6 +53,7 @@ matched: DefaultDict[str, List[str]] = defaultdict(lambda: [])  # driverid's
 riders: Dict[str, Rider] = dict()
 
 rides: Dict[str, Ride] = dict()
+
 
 def add_driver(id: str, x: int, y: int):
     driver = Driver(id, (x, y))
@@ -142,10 +143,13 @@ def stop_ride(ride_id: str, dest_coords: Tuple[int, int], time_taken: int):
 
 
 def distance(start_coord: Tuple[int, int], dest_coord: Tuple[int, int]) -> float:
-    x2, x1 = dest_coord[0], start_coord[0]
-    y2, y1 = dest_coord[1], start_coord[1]
+    getcontext().prec = 10
 
-    return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+    x2, x1 = Decimal(dest_coord[0]), Decimal(start_coord[0])
+    y2, y1 = Decimal(dest_coord[1]), Decimal(start_coord[1])
+
+    d = ((x2 - x1) ** 2 + (y2 - y1) ** 2).sqrt()
+    return float(d)
 
 
 def bill(ride_id: str):
@@ -204,6 +208,3 @@ def command_parser(cmd: str):
     if cmd == "BILL":
         ride_id = args[0]
         bill(ride_id)
-
-
-
