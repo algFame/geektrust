@@ -10,8 +10,10 @@ from src.utils import compare_output, capture_output
 
 def main():
     test_folder = "sample_input"
+    test_specified = True
 
     if len(argv) != 2:
+        test_specified = False
         for i in os.listdir(test_folder):
             if i.endswith(".txt") and i.startswith("input"):
                 argv.append(os.path.join(test_folder, i))
@@ -23,7 +25,7 @@ def main():
         testcase = [i.strip() for i in f.readlines() if len(i) > 0]
         f.close()
 
-        if len(argv) == 2:
+        if test_specified:
             ic(testcase)
             run_testcase("\n".join(testcase))
             return
