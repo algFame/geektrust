@@ -17,8 +17,6 @@ def main():
                 argv.append(os.path.join(test_folder, i))
 
     for file_path in sorted(argv[1:]):
-        print("testcase-", file_path)
-        print()
         input_file = os.path.split(file_path)[1]
 
         f = open(file_path, 'r')
@@ -26,9 +24,7 @@ def main():
         f.close()
 
         if len(argv) == 2:
-            print(testcase)
-            print()
-            print()
+            ic(testcase)
             run_testcase("\n".join(testcase))
             return
 
@@ -39,10 +35,9 @@ def main():
         cmp_output = compare_output(output, os.path.join(test_folder, input_file.replace("input", "output")))
 
         if cmp_output:
-            print("Testcase passed")
+            print(f"Testcase {input_file} passed")
         else:
             print(f"Testcase {input_file} failed")
-            print()
             sys.exit(1)
 
         print()

@@ -1,11 +1,11 @@
-import re
+
 import sys
 from io import StringIO
 
-from colorama import Fore, Style
 from diff_match_patch import diff_match_patch
+from colorama import Fore, Style
 
-
+import re
 def highlight_differences(text1, text2):
     dmp = diff_match_patch()
     diffs = dmp.diff_main(text1, text2)
@@ -22,19 +22,18 @@ def highlight_differences(text1, text2):
 
     return highlighted_diff
 
-
-def capture_output(func, *args, **kwargs) -> str:
+def capture_output(func,*args,**kwargs)->str:
     output = StringIO()
     sys.stdout = output
 
-    func(*args, **kwargs)
+    func(*args,**kwargs)
 
     sys.stdout = sys.__stdout__
 
     return output.getvalue()
 
 
-def compare_output(output_value, expected_output_file) -> bool:
+def compare_output(output_value, expected_output_file)->bool:
     with open(expected_output_file, 'r') as f:
         expected_output = f.read().strip()
 
@@ -50,3 +49,4 @@ def compare_output(output_value, expected_output_file) -> bool:
         print()
 
     return output_value == expected_output
+
