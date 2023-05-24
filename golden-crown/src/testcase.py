@@ -1,6 +1,8 @@
 from icecream import ic
 
-dict_objects = []  # TODO:
+from src.golden_crown import ruler
+
+dict_objects = []
 
 
 def reset_global(dicts=None):
@@ -15,4 +17,4 @@ def run_testcase(in_str: str):
     testcase = in_str.strip().splitlines()
     for i in testcase:
         ic(i)
-        # TODO:
+        ruler(i)
