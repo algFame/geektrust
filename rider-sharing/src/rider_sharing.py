@@ -1,6 +1,7 @@
 from collections import defaultdict
 from dataclasses import dataclass
 from datetime import datetime
+from decimal import Decimal, ROUND_HALF_UP
 from math import hypot
 from typing import Tuple, Dict, DefaultDict, List
 
@@ -158,9 +159,18 @@ def bill(ride_id: str):
         return
 
     duration = ride.duration
-    distance_traveled = round(distance(ride.start_coords, ride.dest_coords), 2)
 
-    fare = base_fare + duration * cost_per_min + distance_traveled * cost_per_km
+    distance_traveled = distance(ride.start_coords, ride.dest_coords)
+
+    # Round the distance to 2 decimal places using decimal module
+    rounded_distance = Decimal(distance_traveled).quantize(Decimal('0.00'), rounding=ROUND_HALF_UP)
+
+    # Convert the rounded distance back to float if needed
+    rounded_distance = float(rounded_distance)
+
+    ic(rounded_distance)
+
+    fare = base_fare + duration * cost_per_min + rounded_distance * cost_per_km
     fare += fare * service_tax
 
     print(f"BILL {ride.id} {ride.driver_id} {fare:.2f}")
