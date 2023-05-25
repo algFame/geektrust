@@ -2,7 +2,8 @@ from icecream import ic
 
 from src.rider_sharing import command_parser, drivers, matched, riders, rides
 
-dict_objects = [drivers,matched,riders,rides]
+dict_objects = [drivers, matched, riders, rides]
+
 
 def reset_global(dicts=None):
     if dicts is None:
