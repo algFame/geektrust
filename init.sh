@@ -5,7 +5,9 @@
 
  mkdir -p $problemName
 
- cp -r template/*  $problemName/
+cp rider-sharing/geektrust.py template/
+
+cp -r template/*  $problemName/
 
  cd "$problemName"
 
