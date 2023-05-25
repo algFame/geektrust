@@ -24,14 +24,16 @@ def highlight_differences(text1, text2):
 
 
 def capture_output(func, *args, **kwargs) -> str:
-    output = StringIO()
-    sys.stdout = output
+    original_stdout = sys.stdout
+    sys.stdout = StringIO()
 
     func(*args, **kwargs)
 
-    sys.stdout = sys.__stdout__
+    output_value = sys.stdout.getvalue()
 
-    return output.getvalue()
+    sys.stdout = original_stdout
+
+    return output_value
 
 
 def compare_output(output_value, expected_output_file) -> bool:
