@@ -5,11 +5,15 @@
 
  mkdir -p $problemName
 
+#Sync
+
 cp rider-sharing/geektrust.py template/
 cp rider-sharing/src/utils.py template/src/
-
 find rider-sharing/tests -type f ! -name "*rider*" -name "*.py" -exec cp {} "template/tests" \;
+cp rider-sharing/*.sh template/
+cp rider-sharing/requirements.txt template/
 
+#Copy template files
 cp -r template/*  $problemName/
 
  cd "$problemName"
