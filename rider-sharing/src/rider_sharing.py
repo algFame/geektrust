@@ -1,7 +1,7 @@
 from collections import defaultdict
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime
-from decimal import Decimal, getcontext
+from math import hypot
 from typing import Tuple, Dict, DefaultDict, List
 
 from icecream import ic
@@ -12,15 +12,11 @@ class Ride:
     id: str
     driver_id: str
     rider_id: str
-
-    # driver_coords: Tuple[int,int]
     start_coords: Tuple[int, int]
-    dest_coords: Tuple[int, int] = field(init=False)
-
-    started_at: datetime = field(init=False)
-    ended_at: datetime = field(init=False)
-
-    duration: int = field(init=False)
+    dest_coords: Tuple[int, int] = None
+    started_at: datetime = None
+    ended_at: datetime = None
+    duration: int = None
 
     def start(self):
         self.started_at = datetime.now()
@@ -47,25 +43,20 @@ class Rider:
 
 
 drivers: Dict[str, Driver] = dict()
-
-matched: DefaultDict[str, List[str]] = defaultdict(lambda: [])  # driverid's
-
+matched: DefaultDict[str, List[str]] = defaultdict(list)
 riders: Dict[str, Rider] = dict()
-
 rides: Dict[str, Ride] = dict()
 
 
 def add_driver(id: str, x: int, y: int):
     driver = Driver(id, (x, y))
     drivers[id] = driver
-
     ic(driver)
 
 
 def add_rider(id: str, x: int, y: int):
     rider = Rider(id, (x, y))
     riders[id] = rider
-
     ic(rider)
 
 
@@ -78,7 +69,9 @@ def match(rider_id: str):
         if not driver.available:
             ic(f"driver-{driver.id} is away")
             continue
+
         d = distance(driver.coord, rider.coord)
+
         if d <= 5:
             ic(rider_id, driver.id, d)
             drivers_available.append((driver.id, d))
@@ -86,7 +79,6 @@ def match(rider_id: str):
             ic(f"ignoring {driver.id} is {d} away")
 
     drivers_available = sorted(drivers_available, key=lambda val: (val[1], val[0]))
-
     ic(drivers_available)
 
     if len(drivers_available) == 0:
@@ -94,18 +86,16 @@ def match(rider_id: str):
         return
 
     drivers_available = drivers_available[:5]
-
     shorted_drivers = [i[0] for i in drivers_available]
 
     matched[rider_id] = shorted_drivers
-
-    print(f"""DRIVERS_MATCHED {" ".join(shorted_drivers)}""")
+    print(f"DRIVERS_MATCHED {' '.join(shorted_drivers)}")
 
 
 def start_ride(ride_id: str, driver_n: int, rider_id: str):
     if ride_id in rides:
         print("INVALID_RIDE")
-        ic(f"ride-{ride_id} already exist")
+        ic(f"ride-{ride_id} already exists")
         return
 
     drivers_matched = matched[rider_id]
@@ -120,7 +110,7 @@ def start_ride(ride_id: str, driver_n: int, rider_id: str):
 
     if not driver.available:
         print("INVALID_RIDE")
-        ic(f"driver{driver.id} not available")
+        ic(f"driver {driver.id} not available")
 
     rider = riders[rider_id]
 
@@ -135,28 +125,27 @@ def stop_ride(ride_id: str, dest_coords: Tuple[int, int], time_taken: int):
     if ride_id not in rides:
         print("INVALID_RIDE")
         return
+
     ride = rides[ride_id]
-    ride.dest_coords = dest_coords
     ride.stop(dest_coords, time_taken)
+
     ic(ride)
     print(f"RIDE_STOPPED {ride_id}")
 
 
 def distance(start_coord: Tuple[int, int], dest_coord: Tuple[int, int]) -> float:
-    getcontext().prec = 10
+    x2, x1 = dest_coord[0], start_coord[0]
+    y2, y1 = dest_coord[1], start_coord[1]
 
-    x2, x1 = Decimal(dest_coord[0]), Decimal(start_coord[0])
-    y2, y1 = Decimal(dest_coord[1]), Decimal(start_coord[1])
-
-    d = ((x2 - x1) ** 2 + (y2 - y1) ** 2).sqrt()
-    return float(d)
+    d = hypot(x2 - x1, y2 - y1)
+    return d
 
 
 def bill(ride_id: str):
     base_fare = 50
     cost_per_km = 6.5
     cost_per_min = 2
-    service_tax = .2
+    service_tax = 0.2
 
     if ride_id not in rides:
         print("INVALID_RIDE")
@@ -168,42 +157,40 @@ def bill(ride_id: str):
         print("RIDE_NOT_COMPLETED")
         return
 
-    # duration = (ride.started_at-ride.ended_at).total_seconds()//60
-
     duration = ride.duration
+    distance_traveled = round(distance(ride.start_coords, ride.dest_coords), 2)
 
-    d = round(distance(ride.start_coords, ride.dest_coords), 2)
+    fare = base_fare + duration * cost_per_min + distance_traveled * cost_per_km
+    fare += fare * service_tax
 
-    amt = base_fare + duration * cost_per_min + d * cost_per_km
-
-    ic(amt)
-    amt += amt * service_tax
-
-    print(f"BILL {ride.id} {ride.driver_id} {amt:.2f}")
+    print(f"BILL {ride.id} {ride.driver_id} {fare:.2f}")
 
 
 def command_parser(cmd: str):
     cmd, *args = cmd.split(" ")
 
     if cmd == "ADD_DRIVER":
+        driver_id = args[0]
         coord = list(map(int, args[1:]))
-        add_driver(args[0], *coord)
+        add_driver(driver_id, *coord)
 
     if cmd == "ADD_RIDER":
+        rider_id = args[0]
         coord = list(map(int, args[1:]))
-        add_rider(args[0], *coord)
+        add_rider(rider_id, *coord)
 
     if cmd == "MATCH":
-        match(args[0])
+        rider_id = args[0]
+        match(rider_id)
 
     if cmd == "START_RIDE":
-        ride_id, nth_rider, rider_id = args
-        start_ride(ride_id, int(nth_rider), rider_id)
+        ride_id, nth_driver, rider_id = args
+        start_ride(ride_id, int(nth_driver), rider_id)
 
     if cmd == "STOP_RIDE":
         ride_id, dest_x, dest_y, time_taken = args
-        dest_coord = (int(dest_x), int(dest_y))
-        stop_ride(ride_id, dest_coord, int(time_taken))
+        dest_coords = (int(dest_x), int(dest_y))
+        stop_ride(ride_id, dest_coords, int(time_taken))
 
     if cmd == "BILL":
         ride_id = args[0]
