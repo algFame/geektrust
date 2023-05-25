@@ -21,12 +21,10 @@ def process_testcase(file_path: str):
     cmp_output = compare_output(output, os.path.join(test_folder, input_file.replace("input", "output")))
 
     if cmp_output:
-        print(f"Testcase {input_file} passed")
+        ic(f"Testcase {input_file} passed")
     else:
-        print(f"Testcase {input_file} failed")
+        ic(f"Testcase {input_file} failed")
         sys.exit(1)
-
-    print()
 
 
 def main():
