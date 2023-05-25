@@ -6,6 +6,9 @@
  mkdir -p $problemName
 
 cp rider-sharing/geektrust.py template/
+cp rider-sharing/src/utils.py template/src/
+
+find rider-sharing/tests -type f ! -name "*rider*" -name "*.py" -exec cp {} "template/tests" \;
 
 cp -r template/*  $problemName/
 
