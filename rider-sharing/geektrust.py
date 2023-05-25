@@ -8,7 +8,7 @@ from src.testcase import run_testcase
 from src.utils import compare_output, capture_output
 
 
-def process_testcase(file_path):
+def process_testcase(file_path: str):
     test_folder, input_file = os.path.split(file_path)
 
     with open(file_path, 'r') as f:
@@ -40,7 +40,7 @@ def main():
         test_files = argv[1:]
 
     for file_path in sorted(test_files):
-        process_testcase(file_path)
+        process_testcase(os.path.join(test_folder, file_path))
 
 
 if __name__ == "__main__":
