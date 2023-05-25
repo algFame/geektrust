@@ -142,6 +142,12 @@ def distance(start_coord: Tuple[int, int], dest_coord: Tuple[int, int]) -> float
     return d
 
 
+def _round(f: float) -> float:
+    rounded_f = Decimal(f).quantize(Decimal('0.00'), rounding=ROUND_HALF_UP)
+    ic(f"{f}->{rounded_f}")
+    return float(rounded_f)
+
+
 def bill(ride_id: str):
     base_fare = 50
     cost_per_km = 6.5
@@ -162,16 +168,14 @@ def bill(ride_id: str):
 
     distance_traveled = distance(ride.start_coords, ride.dest_coords)
 
-    # Round the distance to 2 decimal places using decimal module
-    rounded_distance = Decimal(distance_traveled).quantize(Decimal('0.00'), rounding=ROUND_HALF_UP)
+    ic(distance_traveled)
 
-    # Convert the rounded distance back to float if needed
-    rounded_distance = float(rounded_distance)
+    distance_traveled = _round(distance_traveled)
 
-    ic(rounded_distance)
-
-    fare = base_fare + duration * cost_per_min + rounded_distance * cost_per_km
+    fare = base_fare + duration * cost_per_min + distance_traveled * cost_per_km
     fare += fare * service_tax
+
+    fare = _round(fare)
 
     print(f"BILL {ride.id} {ride.driver_id} {fare:.2f}")
 
